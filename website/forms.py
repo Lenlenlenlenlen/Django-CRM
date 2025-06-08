@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Record
 
 
 class SignUpForm(UserCreationForm):
@@ -28,3 +29,17 @@ class SignUpForm(UserCreationForm):
 		self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
 		self.fields['password2'].label = ''
 		self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
+
+
+
+# Create Add Record Form
+class AddRecordForm(forms.ModelForm):
+	title = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Title", 'class':"form-control"}), label="")
+	producer = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Producer", 'class':"form-control"}), label="")
+	voicebank_avatar = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Voicebank Avatar", 'class':"form-control"}), label="")
+	length = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Length", 'class':"form-control"}), label="")
+	year_released = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Year Released", 'class':"form-control"}), label="")
+
+	class Meta:
+		model = Record 
+		exclude = ("user",)
